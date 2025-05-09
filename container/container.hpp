@@ -2,6 +2,8 @@
 #ifndef CONTAINER_HPP
 #define CONTAINER_HPP
 
+typedef unsigned long ulong;
+
 
 /* ************************************************************************** */
 namespace lasd 
@@ -13,7 +15,7 @@ namespace lasd
 
 
 		protected:
-			unsigned long size = 0;
+			ulong size = 0;
 
 			/* ************************************************************************ */
 			// Default constructor
@@ -40,7 +42,7 @@ namespace lasd
 
 			/* ************************************************************************ */
 			// Specific member functions
-			inline virtual bool Empty() const noexcept
+			virtual bool Empty() const noexcept
 			{
 				if(size == 0)
 					return true;
@@ -48,7 +50,7 @@ namespace lasd
 				return false;
 			};
 		
-			inline virtual unsigned long Size() const noexcept
+			virtual ulong Size() const noexcept
 			{
 				return size;
 			};
@@ -119,12 +121,12 @@ namespace lasd
 
 				/* ************************************************************************ */
 				// Specific member functions
-				virtual void Resize(unsigned long) = 0;
+				virtual void Resize(ulong) = 0;
 
 
 				/* ************************************************************************ */
 				// Specific member function (inherited from ClearableContainer)
-				inline void Clear() override
+				void Clear() override
 				{
 					Resize(0);
 				};
