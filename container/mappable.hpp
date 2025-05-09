@@ -52,7 +52,7 @@ namespace lasd
 
 	/* ************************************************************************** */
 	template <typename Data>
-	class PreOrderMappableContainer : virtual public  MappableContainer<Data>, PreOrderTraversableContainer<Data>
+	class PreOrderMappableContainer : virtual public MappableContainer<Data>, PreOrderTraversableContainer<Data>
 	{
 		private:
 
@@ -86,7 +86,7 @@ namespace lasd
 
 			/* ************************************************************************ */
 			// Specific member function (inherited from MappableContainer)
-			inline void Map(MapFun) override;
+			void Map(MapFun) override;
 	};
 
 
@@ -127,7 +127,7 @@ namespace lasd
 
 			/* ************************************************************************ */
 			// Specific member function (inherited from MappableContainer)
-			inline void Map(MapFun) override;
+			void Map(MapFun) override;
 	};
 	/* ************************************************************************** */
 }
