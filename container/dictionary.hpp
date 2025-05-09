@@ -45,13 +45,13 @@ namespace lasd
             virtual bool Insert(Data&&) = 0; // Move of the value
             virtual bool Remove(const Data&) = 0;
 
-            inline bool InsertAll(const TraversableContainer<Data>&);  // Copy of the value; From TraversableContainer; True if all are inserted
-            inline bool InsertAll(MappableContainer<Data>&&);  // Move of the value; From MappableContainer; True if all are inserted
-            inline bool RemoveAll(const TraversableContainer<Data>&); // From TraversableContainer; True if all are removed
+            virtual bool InsertAll(const TraversableContainer<Data>&);  // Copy of the value; From TraversableContainer; True if all are inserted
+            virtual bool InsertAll(MappableContainer<Data>&&);  // Move of the value; From MappableContainer; True if all are inserted
+            virtual bool RemoveAll(const TraversableContainer<Data>&); // From TraversableContainer; True if all are removed
 
-            inline bool InsertSome(const TraversableContainer<Data>&);  // Copy of the value; From TraversableContainer; True if all are inserted
-            inline bool InsertSome(MappableContainer<Data>&&);  // Move of the value; From MappableContainer; True if all are inserted
-            inline bool RemoveSome(const TraversableContainer<Data>&); // From TraversableContainer; True if all are removed
+            virtual bool InsertSome(const TraversableContainer<Data>&);  // Copy of the value; From TraversableContainer; True if some are inserted
+            virtual bool InsertSome(MappableContainer<Data>&&);  // Move of the value; From MappableContainer; True if some are inserted
+            virtual bool RemoveSome(const TraversableContainer<Data>&); // From TraversableContainer; True if some are removed
     };
 
 
@@ -67,45 +67,45 @@ namespace lasd
 
 
         public:
-        // Destructor
-        virtual ~OrderedDictionaryContainer() = default;
+            // Destructor
+            virtual ~OrderedDictionaryContainer() = default;
 
 
-        /* ************************************************************************ */
-        // Copy assignment
-        OrderedDictionaryContainer& operator=(const OrderedDictionaryContainer&) = delete; 
-        // Move assignment
-        OrderedDictionaryContainer& operator=(OrderedDictionaryContainer&&) = delete; 
+            /* ************************************************************************ */
+            // Copy assignment
+            OrderedDictionaryContainer& operator=(const OrderedDictionaryContainer&) = delete; 
+            // Move assignment
+            OrderedDictionaryContainer& operator=(OrderedDictionaryContainer&&) = delete; 
 
 
-        /* ************************************************************************ */
-        // Comparison operators
-        bool operator==(const OrderedDictionaryContainer&) const noexcept = delete; 
-        bool operator!=(const OrderedDictionaryContainer&) const noexcept = delete; 
+            /* ************************************************************************ */
+            // Comparison operators
+            bool operator==(const OrderedDictionaryContainer&) const noexcept = delete; 
+            bool operator!=(const OrderedDictionaryContainer&) const noexcept = delete; 
 
 
-        /* ************************************************************************ */
-        // Specific member functions
-        virtual const Data& Min() const noexcept(false) = 0; // (concrete function must throw std::length_error when empty)
-        // type MinNRemove(argument) specifiers; // (concrete function must throw std::length_error when empty)
-        virtual void RemoveMin() noexcept(false) = 0; // (concrete function must throw std::length_error when empty)
+            /* ************************************************************************ */
+            // Specific member functions
+            virtual const Data& Min() const noexcept(false) = 0; // (concrete function must throw std::length_error when empty)
+            virtual void RemoveMin() noexcept(false); // (concrete function must throw std::length_error when empty)
+            virtual Data MinNRemove() noexcept(false); // (concrete function must throw std::length_error when empty)
 
-        virtual const Data& Max() const noexcept(false) = 0; // (concrete function must throw std::length_error when empty)
-        // type MaxNRemove(argument) specifiers; // (concrete function must throw std::length_error when empty)
-        virtual void RemoveMax() noexcept(false) = 0; // (concrete function must throw std::length_error when empty)
+            virtual const Data& Max() const noexcept(false) = 0; // (concrete function must throw std::length_error when empty)
+            virtual void RemoveMax() noexcept(false); // (concrete function must throw std::length_error when empty)
+            virtual Data MaxNRemove() noexcept(false); // (concrete function must throw std::length_error when empty)
 
 
-        virtual const Data& Predecessor(const Data&) const noexcept(false) = 0; // (concrete function must throw std::length_error when not found)
-        // type PredecessorNRemove(argument) specifiers; // (concrete function must throw std::length_error when not found)
-        virtual void RemovePredecessor(Data&) noexcept(false) = 0; // (concrete function must throw std::length_error when not found)
-        
-        virtual const Data& Successor(const Data&) const noexcept(false) = 0; // (concrete function must throw std::length_error when not found)
-        // type SuccessorNRemove(argument) specifiers; // (concrete function must throw std::length_error when not found)
-        virtual void RemoveSuccessor(Data&) noexcept(false) = 0; // (concrete function must throw std::length_error when not found)
+            virtual const Data& Predecessor(const Data&) const noexcept(false) = 0; // (concrete function must throw std::length_error when not found)
+            virtual void RemovePredecessor(const Data&) noexcept(false); // (concrete function must throw std::length_error when not found)
+            virtual Data PredecessorNRemove(const Data&) noexcept(false); // (concrete function must throw std::length_error when not found)
+            
+            virtual const Data& Successor(const Data&) const noexcept(false) = 0; // (concrete function must throw std::length_error when not found)
+            virtual void RemoveSuccessor(const Data&) noexcept(false); // (concrete function must throw std::length_error when not found)
+            virtual Data SuccessorNRemove(const Data&) noexcept(false); // (concrete function must throw std::length_error when not found)
     };
     /* ************************************************************************** */
 }
 
-#include "dictionary.cpp"
+//#include "dictionary.cpp"
 
 #endif
