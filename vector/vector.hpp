@@ -43,9 +43,9 @@ namespace lasd
 
 
 			// Copy assignment
-            Vector<Data>& operator=(const Vector<Data>&); 
+            		Vector<Data>& operator=(const Vector<Data>&); 
 			// Move assignment
-            Vector& operator=(Vector<Data>&&) noexcept; 
+            		Vector& operator=(Vector<Data>&&) noexcept; 
 
 
 			// Comparison operators
