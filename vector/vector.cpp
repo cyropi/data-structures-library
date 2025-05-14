@@ -59,6 +59,17 @@ namespace lasd
     template<typename Data>
     Vector<Data>& Vector<Data>::operator=(const Vector<Data>& vector)
     {
+        Vector<Data> tmpVector = vector;
+        std::swap(tmpVector, *this);
+        delete tmpVector;
+
+        return *this; 
+    }
+
+
+/*     template<typename Data>
+    Vector<Data>& Vector<Data>::operator=(const Vector<Data>& vector)
+    {   
         delete[] this->array;
 
         this->size = vector.size;
@@ -67,7 +78,7 @@ namespace lasd
         std::copy_n(vector.array, this->size, this->array);
 
         return *this;
-    }
+    } */
 
 
     template<typename Data>
@@ -97,8 +108,8 @@ namespace lasd
     template<typename Data>
 	const Data& Vector<Data>::operator[](ulong index) const noexcept(false)
     {
-        if(index > this->size )
-            throw std::out_of_range("Indice non valido! Sei fuori dal range della dimensione del vettore.");
+        if(index > this->size)
+            throw std::out_of_range("Indice non valido! Sei fuori dal range della dimensione del vettore...");
         
         return this->array[index];
     }
@@ -107,8 +118,8 @@ namespace lasd
     template<typename Data>
 	Data& Vector<Data>::operator[](ulong index) noexcept(false)
     {
-        if(index > this->size )
-            throw std::out_of_range("Indice non valido! Sei fuori dal range della dimensione del vettore.");
+        if(index > this->size)
+            throw std::out_of_range("Indice non valido! Sei fuori dal range della dimensione del vettore...");
         
         return this->array[index];
     }
