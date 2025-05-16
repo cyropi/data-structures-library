@@ -1,4 +1,5 @@
 
+
 namespace lasd 
 {
     template <typename Data>
@@ -54,8 +55,6 @@ namespace lasd
     template <typename Data>
     List<Data>::List(const TraversableContainer<Data>& traversableContainer)
     {
-        this->size = traversableContainer.Size();
-
         traversableContainer.Traverse([this](const Data& data) 
                                         -> void{ this->InsertAtBack(data); });
     }
@@ -64,8 +63,6 @@ namespace lasd
     template <typename Data>
     List<Data>::List(MappableContainer<Data>&& mappableContainer)
     {
-        this->size = mappableContainer.Size();
-
         mappableContainer.Map([this](Data& data) 
                                 -> void{ this->InsertAtBack(std::move(data)); });
     }
