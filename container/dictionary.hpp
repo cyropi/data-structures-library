@@ -2,44 +2,35 @@
 #ifndef DICTIONARY_HPP
 #define DICTIONARY_HPP
 
-
-/* ************************************************************************** */
 #include "testable.hpp"
 #include "mappable.hpp"
 
 
-/* ************************************************************************** */
 namespace lasd 
 {
-    /* ************************************************************************** */
     template <typename Data>
     class DictionaryContainer : virtual public TestableContainer<Data>
     {   
         private:
 
-
         protected:
-
 
         public:
             // Destructor
             virtual ~DictionaryContainer() = default;
 
 
-            /* ************************************************************************ */
             // Copy assignment
             DictionaryContainer& operator=(const DictionaryContainer&) = delete; 
             // Move assignment
             DictionaryContainer& operator=(DictionaryContainer&&) noexcept = delete; 
 
-            /* ************************************************************************ */
 
             // Comparison operators
             bool operator==(const DictionaryContainer&) const noexcept = delete; 
             bool operator!=(const DictionaryContainer&) const noexcept = delete; 
 
 
-            /* ************************************************************************ */
             // Specific member functions
             virtual bool Insert(const Data&) = 0; // Copy of the value
             virtual bool Insert(Data&&) = 0; // Move of the value
@@ -56,35 +47,29 @@ namespace lasd
 
 
 
-    /* ************************************************************************** */
     template <typename Data>
     class OrderedDictionaryContainer : virtual public DictionaryContainer<Data>
     {
         private:
 
-
         protected:
-
 
         public:
             // Destructor
             virtual ~OrderedDictionaryContainer() = default;
 
 
-            /* ************************************************************************ */
             // Copy assignment
             OrderedDictionaryContainer& operator=(const OrderedDictionaryContainer&) = delete; 
             // Move assignment
-            OrderedDictionaryContainer& operator=(OrderedDictionaryContainer&&) = delete; 
+            OrderedDictionaryContainer& operator=(OrderedDictionaryContainer&&) noexcept = delete; 
 
 
-            /* ************************************************************************ */
             // Comparison operators
             bool operator==(const OrderedDictionaryContainer&) const noexcept = delete; 
             bool operator!=(const OrderedDictionaryContainer&) const noexcept = delete; 
 
 
-            /* ************************************************************************ */
             // Specific member functions
             virtual const Data& Min() const noexcept(false) = 0; // (concrete function must throw std::length_error when empty)
             virtual void RemoveMin() noexcept(false); // (concrete function must throw std::length_error when empty)
@@ -103,9 +88,8 @@ namespace lasd
             virtual void RemoveSuccessor(const Data&) noexcept(false); // (concrete function must throw std::length_error when not found)
             virtual Data SuccessorNRemove(const Data&) noexcept(false); // (concrete function must throw std::length_error when not found)
     };
-    /* ************************************************************************** */
 }
 
-//#include "dictionary.cpp"
+#include "dictionary.cpp"
 
 #endif
