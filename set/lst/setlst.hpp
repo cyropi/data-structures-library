@@ -1,5 +1,4 @@
 
-
 #ifndef SETLST_HPP
 #define SETLST_HPP
 
@@ -11,14 +10,15 @@ namespace lasd
 {
 	template <typename Data>
 	class SetLst : virtual public Set<Data>,
-				   virtual public List<Data>
+				   virtual protected List<Data>
 	{ 
 		private:
 			// ...
 
 		protected:
 			// using Container::???;
-			// ...
+			using typename List<Data>::Node;
+			using List<Data>::Clear;
 
 
 		public:
@@ -32,7 +32,7 @@ namespace lasd
 
 
 			// Copy constructor
-			SetLst(const SetLst<Data>&) const;
+			SetLst(const SetLst<Data>&);
 
 			// Move constructor
 			SetLst(SetLst<Data>&&) noexcept;
@@ -43,10 +43,10 @@ namespace lasd
 
 
 			// Copy assignment
-			SetLst& operator=(const SetLst<Data>&);
+			SetLst<Data>& operator=(const SetLst<Data>&);
 
 			// Move assignment
-			SetLst& operator=(SetLst<Data>&&) noexcept;
+			SetLst<Data>& operator=(SetLst<Data>&&) noexcept;
 
 
 			// Comparison operators
@@ -56,20 +56,20 @@ namespace lasd
 
 			// Specific member functions (inherited from OrderedDictionaryContainer)
 			const Data& Min() const noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
-			// type MinNRemove(argument) specifiers; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
-			// type RemoveMin(argument) specifiers; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
+			void RemoveMin() noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
+			Data MinNRemove() noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
 
 			const Data& Max() const noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
-			// type MaxNRemove(argument) specifiers; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
-			// type RemoveMax(argument) specifiers; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
+			void RemoveMax() noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
+			Data MaxNRemove() noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when empty)
 
 			const Data& Predecessor(const Data&) const noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
-			// type PredecessorNRemove(argument) specifiers; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
-			// type RemovePredecessor(argument) specifiers; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
+			void RemovePredecessor() noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
+			Data PredecessorNRemove() noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
 
 			const Data& Successor(const Data&) const noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
-			// type SuccessorNRemove(argument) specifiers; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
-			// type RemoveSuccessor(argument) specifiers; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
+			void RemoveSuccessor() noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
+			Data SuccessorNRemove() noexcept(false) override; // Override OrderedDictionaryContainer member (concrete function must throw std::length_error when not found)
 
 
 			// Specific member functions (inherited from DictionaryContainer)
@@ -83,11 +83,11 @@ namespace lasd
 
 
 			// Specific member function (inherited from TestableContainer)
-			virtual bool Exists(const Data&) const noexcept override; // Override TestableContainer member
+			bool Exists(const Data&) const noexcept override; // Override TestableContainer member
 
 
 			// Specific member function (inherited from ClearableContainer)
-			void Clear() override; // Override ClearableContainer member
+			//void Clear() override; // Override ClearableContainer member
 
 
 		protected:
