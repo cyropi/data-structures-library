@@ -260,7 +260,7 @@ namespace lasd
         }
 
         if(successor_index == nullptr)
-            throw std::length_error("Non è stato possibile trovare il predecessore nel Set Vec...");
+            throw std::length_error("Non è stato possibile trovare il successore nel Set Vec...");
 
 
         return *predecessor_index;
