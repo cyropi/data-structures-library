@@ -78,7 +78,7 @@ namespace lasd
 
 
     template <typename Data>
-    bool PQHeap<Data>::operator==(const PQHeap<Data>& pQHeap) const noexcept
+    bool PQHeap<Data>::operator!=(const PQHeap<Data>& pQHeap) const noexcept
     {
         return !(*this == pQHeap);
     }
