@@ -1,5 +1,4 @@
 
-
 #ifndef HEAPVEC_HPP
 #define HEAPVEC_HPP
 
@@ -11,7 +10,7 @@ namespace lasd
 {
     template <typename Data>
     class HeapVec : virtual public Heap<Data>,
-                    virtual protected SortableVector<Data>
+                    virtual protected Vector<Data>
     {  // Could extend SortableVector<Data>
         private:
             // ...
@@ -27,6 +26,7 @@ namespace lasd
 
 
             // Specific constructors
+            HeapVec(const ulong);
             HeapVec(const TraversableContainer<Data>&); // A heap obtained from a TraversableContainer
             HeapVec(MappableContainer<Data>&&); // A heap obtained from a MappableContainer
 
@@ -60,13 +60,22 @@ namespace lasd
             // Specific member function (inherited from SortableLinearContainer)
             void Sort() override; // Override SortableLinearContainer member
 
+ 
+			const Data& operator[](ulong) const noexcept(false) override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+			Data& operator[](ulong) noexcept(false) override; // Override MutableLinearContainer member (must throw std::out_of_range when out of range)
 
-        protected:
+
+			void Clear() override; // Override ClearableContainer member 
+
+
+        public:
             // Auxiliary functions, if necessary!
             ulong GetParentIndex(ulong) const noexcept;
             ulong GetLeftChildIndex(ulong) const noexcept;
             ulong GetRightChildIndex(ulong) const noexcept;
-            void MaxHeapify(ulong);
+            void DecreaseHeapSize(ulong) noexcept;
+            void HeapifyDown(ulong,ulong);
+            void HeapifyUp(ulong);
     };
 }
 
